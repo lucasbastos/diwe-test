@@ -1,0 +1,56 @@
+[
+  {
+    "id": 1,
+    "role": "Jogador",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Copa do Mundo"
+      },
+      {
+        "id": 2,
+        "name": "Super Herói"
+      },
+      {
+        "id": 3,
+        "name": "Futebol"
+      }
+    ]
+  },
+  {
+    "id": 2,
+    "role": "Colecionador",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Copa do Mundo"
+      },
+      {
+        "id": 2,
+        "name": "Super Herói"
+      },
+      {
+        "id": 3,
+        "name": "Futebol"
+      }
+    ]
+  },
+  {
+    "id": 3,
+    "role": "Cliente",
+    "categories": [
+      {
+        "id": 1,
+        "name": "Copa do Mundo"
+      },
+      {
+        "id": 2,
+        "name": "Super Herói"
+      },
+      {
+        "id": 3,
+        "name": "Futebol"
+      }
+    ]
+  }
+]
