@@ -1,16 +1,16 @@
-import {inject} from '@loopback/core';
 import {DefaultCrudRepository} from '@loopback/repository';
+import {Category, CategoryRelations} from '../models';
 import {DbDataSource} from '../datasources';
-import {category, CategoryRelations} from '../models';
+import {inject} from '@loopback/core';
 
 export class CategoryRepository extends DefaultCrudRepository<
-  category,
-  typeof category.prototype.id,
+  Category,
+  typeof Category.prototype.id,
   CategoryRelations
 > {
   constructor(
     @inject('datasources.db') dataSource: DbDataSource,
   ) {
-    super(category, dataSource);
+    super(Category, dataSource);
   }
 }

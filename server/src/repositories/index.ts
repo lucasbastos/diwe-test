@@ -1,3 +1,3 @@
-export * from './category.repository';
 export * from './role.repository';
-export * from './rolecategory.repository';
+export * from './category.repository';
+export * from './rolecategories.repository';

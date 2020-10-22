@@ -1,45 +1,13 @@
 <template>
   <v-app>
     <v-container>
-      <v-row class="ma-10">
-        <v-card
-          class="mx-auto my-auto grey lighten-2 mb-10"
-          width="200px"
-          height="350px"
-          v-for="role in roles"
-          :key="role in roles"
-        >
-          <v-card-title class="justify-center">{{ role.role }}</v-card-title>
-          <v-list rounded class="grey lighten-2">
-            <v-list-item-group v-model="item">
-              <draggable
-                class="list-group grey lighten-5"
-                :list="role.categories"
-                group="people"
-                @change="log(role.role, $event)"
-                ><v-list-item
-                  v-for="category in role.categories"
-                  :key="category in role.categories"
-                >
-                  {{ category.name }}
-                  <v-spacer></v-spacer>
-                  <v-icon @click="removeCategory(role, category)"
-                    >mdi-trash-can-outline</v-icon
-                  >
-                </v-list-item>
-              </draggable>
-            </v-list-item-group>
-          </v-list>
-        </v-card>
+      <v-row :align="align" class="ma-10">
+        <div v-for="role in roles" v-bind:key="role.id" class="mx-auto">
+          <Role :role="role" />
+        </div>
       </v-row>
       <v-row class="justify-center ma-10">
-        <v-btn v-if="!addRole" @click="toAddRole">Adicionar Role</v-btn>
-        <v-text-field
-          v-if="addRole"
-          v-on:keyup.enter="onEnterRole"
-          v-model="newRole"
-          label="Role"
-        ></v-text-field>
+        <AddRoleForm />
       </v-row>
       <v-row class="justify-center ma-10">
         <v-btn v-if="!addCategory" @click="toAddCategory"
@@ -56,28 +24,36 @@
   </v-app>
 </template>
 <script>
-import draggable from "vuedraggable";
-//import axios from "axios";
+//import draggable from "vuedraggable";
+import axios from "axios";
+import Role from "./Role";
+import AddRoleForm from "./AddRoleForm";
 
-import api from "../data/api.json";
+//import api from "../data/api.json";
 
 export default {
-  name: "two-lists",
-  display: "Two Lists",
-  order: 1,
+  name: "Board",
   components: {
-    draggable,
+    Role,
+    AddRoleForm,
+    //draggable,
   },
   data() {
     return {
-      roles: api,
+      roles: null,
       addRole: false,
       addCategory: false,
       newRole: null,
       newCategory: null,
     };
   },
-  mounted() {},
+  mounted() {
+    axios
+      .get("http://localhost:3000/roles?filter[include][][relation]=categories")
+      .then((response) => {
+        this.roles = response.data;
+      });
+  },
   methods: {
     toAddRole() {
       this.addRole = true;

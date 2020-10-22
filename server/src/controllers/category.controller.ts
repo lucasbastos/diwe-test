@@ -4,23 +4,19 @@ import {
   Filter,
   FilterExcludingWhere,
   repository,
-  Where
+  Where,
 } from '@loopback/repository';
 import {
-  del, get,
-  getModelSchemaRef, param,
-
-
-  patch, post,
-
-
-
-
+  post,
+  param,
+  get,
+  getModelSchemaRef,
+  patch,
   put,
-
-  requestBody
+  del,
+  requestBody,
 } from '@loopback/rest';
-import {category} from '../models';
+import {Category} from '../models';
 import {CategoryRepository} from '../repositories';
 
 export class CategoryController {
@@ -33,7 +29,7 @@ export class CategoryController {
     responses: {
       '200': {
         description: 'Category model instance',
-        content: {'application/json': {schema: getModelSchemaRef(category)}},
+        content: {'application/json': {schema: getModelSchemaRef(Category)}},
       },
     },
   })
@@ -41,15 +37,15 @@ export class CategoryController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(category, {
+          schema: getModelSchemaRef(Category, {
             title: 'NewCategory',
-
+            exclude: ['id'],
           }),
         },
       },
     })
-    category: category,
-  ): Promise<category> {
+    category: Omit<Category, 'id'>,
+  ): Promise<Category> {
     return this.categoryRepository.create(category);
   }
 
@@ -62,7 +58,7 @@ export class CategoryController {
     },
   })
   async count(
-    @param.where(category) where?: Where<category>,
+    @param.where(Category) where?: Where<Category>,
   ): Promise<Count> {
     return this.categoryRepository.count(where);
   }
@@ -75,7 +71,7 @@ export class CategoryController {
           'application/json': {
             schema: {
               type: 'array',
-              items: getModelSchemaRef(category, {includeRelations: true}),
+              items: getModelSchemaRef(Category, {includeRelations: true}),
             },
           },
         },
@@ -83,8 +79,8 @@ export class CategoryController {
     },
   })
   async find(
-    @param.filter(category) filter?: Filter<category>,
-  ): Promise<category[]> {
+    @param.filter(Category) filter?: Filter<Category>,
+  ): Promise<Category[]> {
     return this.categoryRepository.find(filter);
   }
 
@@ -100,12 +96,12 @@ export class CategoryController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(category, {partial: true}),
+          schema: getModelSchemaRef(Category, {partial: true}),
         },
       },
     })
-    category: category,
-    @param.where(category) where?: Where<category>,
+    category: Category,
+    @param.where(Category) where?: Where<Category>,
   ): Promise<Count> {
     return this.categoryRepository.updateAll(category, where);
   }
@@ -116,7 +112,7 @@ export class CategoryController {
         description: 'Category model instance',
         content: {
           'application/json': {
-            schema: getModelSchemaRef(category, {includeRelations: true}),
+            schema: getModelSchemaRef(Category, {includeRelations: true}),
           },
         },
       },
@@ -124,8 +120,8 @@ export class CategoryController {
   })
   async findById(
     @param.path.number('id') id: number,
-    @param.filter(category, {exclude: 'where'}) filter?: FilterExcludingWhere<category>
-  ): Promise<category> {
+    @param.filter(Category, {exclude: 'where'}) filter?: FilterExcludingWhere<Category>
+  ): Promise<Category> {
     return this.categoryRepository.findById(id, filter);
   }
 
@@ -141,11 +137,11 @@ export class CategoryController {
     @requestBody({
       content: {
         'application/json': {
-          schema: getModelSchemaRef(category, {partial: true}),
+          schema: getModelSchemaRef(Category, {partial: true}),
         },
       },
     })
-    category: category,
+    category: Category,
   ): Promise<void> {
     await this.categoryRepository.updateById(id, category);
   }
@@ -159,7 +155,7 @@ export class CategoryController {
   })
   async replaceById(
     @param.path.number('id') id: number,
-    @requestBody() category: category,
+    @requestBody() category: Category,
   ): Promise<void> {
     await this.categoryRepository.replaceById(id, category);
   }

@@ -1,3 +1,3 @@
 export * from './role.model';
 export * from './category.model';
-export * from './rolecategory.model';
+export * from './rolecategories.model';

@@ -3,12 +3,12 @@ import {juggler} from '@loopback/repository';
 
 const config = {
   name: 'db',
-  connector: 'postgresql',
+  connector: 'mysql',
   url: '',
   host: 'localhost',
-  port: 5432,
-  user: 'postgres',
-  password: '123123',
+  port: 3306,
+  user: 'root',
+  password: '',
   database: 'diwe_test'
 };
 

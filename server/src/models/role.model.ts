@@ -1,8 +1,9 @@
-import {Entity, hasMany, model, property} from '@loopback/repository';
-import {category} from './category.model';
+import {Entity, model, property, hasMany} from '@loopback/repository';
+import {Category} from './category.model';
+import {Rolecategories} from './rolecategories.model';
 
 @model()
-export class role extends Entity {
+export class Role extends Entity {
   @property({
     type: 'number',
     id: true,
@@ -28,11 +29,10 @@ export class role extends Entity {
   })
   active: boolean;
 
-  @hasMany(() => category)
-  categories?: category[];
+  @hasMany(() => Category, {through: {model: () => Rolecategories}})
+  categories: Category[];
 
-
-  constructor(data?: Partial<role>) {
+  constructor(data?: Partial<Role>) {
     super(data);
   }
 }
@@ -41,4 +41,4 @@ export interface RoleRelations {
   // describe navigational properties here
 }
 
-export type RoleWithRelations = role & RoleRelations;
+export type RoleWithRelations = Role & RoleRelations;
