@@ -10,15 +10,7 @@
         <AddRoleForm />
       </v-row>
       <v-row class="justify-center ma-10">
-        <v-btn v-if="!addCategory" @click="toAddCategory"
-          >Adicionar Categoria</v-btn
-        >
-        <v-text-field
-          v-if="addCategory"
-          v-on:keyup.enter="onEnterCategory"
-          v-model="newCategory"
-          label="Categoria"
-        ></v-text-field>
+        <AddCategoryForm />
       </v-row>
     </v-container>
   </v-app>
@@ -28,6 +20,7 @@
 import axios from "axios";
 import Role from "./Role";
 import AddRoleForm from "./AddRoleForm";
+import AddCategoryForm from "./AddCategoryForm";
 
 //import api from "../data/api.json";
 
@@ -36,6 +29,7 @@ export default {
   components: {
     Role,
     AddRoleForm,
+    AddCategoryForm,
     //draggable,
   },
   data() {
